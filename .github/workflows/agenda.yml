@@ -21,17 +21,18 @@ jobs:
           node-version: 24
 
       - name: Debug secret
-  run: |
-    if [ -z "$DISCORD_WEBHOOK" ]; then
-      echo "❌ El secreto está vacío"
-      exit 1
-    else
-      echo "✅ El secreto existe (longitud: ${#DISCORD_WEBHOOK})"
-    fi
-  env:
-    DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK" ]; then
+            echo "❌ El secreto está vacío"
+            exit 1
+          else
+            echo "✅ El secreto existe (longitud: ${#DISCORD_WEBHOOK})"
+          fi
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 
       - name: Run script
         run: node agenda.js
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
