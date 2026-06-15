@@ -38,7 +38,7 @@ const options = { day: 'numeric', month: 'long' };
 const mondayStr = nextMonday.toLocaleDateString('es-ES', options);
 const fridayStr = nextFriday.toLocaleDateString('es-ES', options);
 
-// Construimos los bloques (cada uno <2000 chars)
+// Bloques <2000 caracteres
 const bloques = [
   `📅 Agenda de la semana del ${mondayStr} al ${fridayStr} @everyone
 
@@ -70,9 +70,8 @@ Aquí tenéis los enlaces y horarios de las próximas sesiones:
 ¡Os esperamos! 😊`
 ];
 
-// Enviar cada bloque en orden
-(async () => {
-  for (const b of bloques) {
-    await enviar(b);
-  }
-})();
+// Enviar bloques en cadena (sin async/await)
+enviar(bloques[0])
+  .then(() => enviar(bloques[1]))
+  .then(() => enviar(bloques[2]))
+  .catch((err) => console.error("Error:", err));
